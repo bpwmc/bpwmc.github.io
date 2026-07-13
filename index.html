@@ -28,18 +28,20 @@ body{
     sans-serif;
 
     background:#fbfbfd;
+
     color:#1d1d1f;
 
 }
 
 
+
 .container{
 
-    max-width:1200px;
+    max-width:1100px;
 
     margin:auto;
 
-    padding:80px 30px;
+    padding:60px 30px;
 
 }
 
@@ -52,14 +54,34 @@ body{
 
     text-align:center;
 
-    padding:120px 0;
+    padding:100px 0;
 
 }
 
 
-.hero h1{
 
-    font-size:96px;
+.avatar{
+
+    width:160px;
+
+    height:160px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    margin-bottom:40px;
+
+    box-shadow:
+    0 20px 50px rgba(0,0,0,.12);
+
+}
+
+
+
+h1{
+
+    font-size:80px;
 
     letter-spacing:12px;
 
@@ -68,11 +90,12 @@ body{
 }
 
 
-.hero p{
 
-    margin-top:30px;
+.subtitle{
 
-    font-size:26px;
+    margin-top:25px;
+
+    font-size:24px;
 
     color:#6e6e73;
 
@@ -81,7 +104,8 @@ body{
 
 
 
-/* 导航 */
+
+/* 按钮 */
 
 
 .nav{
@@ -91,27 +115,34 @@ body{
 }
 
 
+
 .nav a{
+
 
     display:inline-block;
 
-    margin:10px;
-
-    padding:14px 32px;
-
-
-    color:#1d1d1f;
-
     text-decoration:none;
 
-
-    border-radius:30px;
+    color:#1d1d1f;
 
 
     background:white;
 
 
+    padding:16px 45px;
+
+
+    margin:10px;
+
+
+    border-radius:40px;
+
+
+    font-size:18px;
+
+
     box-shadow:
+
     0 10px 30px rgba(0,0,0,.08);
 
 
@@ -131,22 +162,22 @@ body{
 
 
 
-/* 内容 */
+/* 中间卡片 */
 
 
-.section{
-
-
-    margin-top:80px;
+.card{
 
 
     background:white;
 
 
-    border-radius:30px;
+    border-radius:35px;
 
 
     padding:70px;
+
+
+    margin-top:50px;
 
 
     box-shadow:
@@ -158,21 +189,23 @@ body{
 
 
 
-.section h2{
+.card h2{
+
 
     font-size:42px;
 
-    margin-bottom:25px;
+    margin-bottom:30px;
 
 }
 
 
 
-.section p{
+.card p{
 
-    font-size:20px;
 
     color:#6e6e73;
+
+    font-size:20px;
 
     line-height:2;
 
@@ -181,12 +214,13 @@ body{
 
 
 
-
 footer{
+
 
     text-align:center;
 
     margin-top:100px;
+
 
     color:#86868b;
 
@@ -194,8 +228,8 @@ footer{
 
 
 
-</style>
 
+</style>
 
 </head>
 
@@ -206,39 +240,46 @@ footer{
 <div class="container">
 
 
-
 <section class="hero">
 
 
+
+<img 
+class="avatar"
+src="微信图片_20251228180549_142_1.jpg"
+alt="BPWMC头像">
+
+
+
 <h1>
+
 BPWMC
+
 </h1>
 
 
-<p>
+<p class="subtitle">
+
 Create · Record · Share
+
 </p>
+
 
 
 <div class="nav">
 
-<a href="#">
-关于我
-</a>
 
+<a href="blog.html">
 
-<a href="#">
 日志
+
 </a>
 
 
-<a href="#">
-相册
-</a>
+<a href="download.html">
 
-
-<a href="#">
 资源
+
 </a>
 
 
@@ -250,26 +291,31 @@ Create · Record · Share
 
 
 
-<section class="section">
+<section class="card">
 
 
 <h2>
+
 Welcome
+
 </h2>
 
 
 <p>
-这是 BPWMC 的个人空间。
+
+欢迎来到 BPWMC 的个人空间。
+
 </p>
 
 
 <p>
+
 记录想法，保存回忆，分享资源。
+
 </p>
 
 
 </section>
-
 
 
 
@@ -278,7 +324,6 @@ Welcome
 © 2026 BPWMC
 
 </footer>
-
 
 
 </div>

@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>别碰我蜜茶</title>
+
+
 <style>
 
 *{
@@ -17,6 +28,7 @@ body{
     sans-serif;
 
     background:#fbfbfd;
+
     color:#1d1d1f;
 
     overflow-x:hidden;
@@ -33,6 +45,7 @@ body::before{
     position:fixed;
 
     width:600px;
+
     height:600px;
 
     background:
@@ -41,11 +54,13 @@ body::before{
     transparent 70%);
 
     top:-200px;
+
     left:-200px;
 
     z-index:-1;
 
 }
+
 
 
 /* 主容器 */
@@ -62,7 +77,7 @@ body::before{
 
 
 
-/* 首屏 */
+/* 首页 */
 
 .hero{
 
@@ -79,13 +94,19 @@ body::before{
 @keyframes fade{
 
 from{
+
 opacity:0;
+
 transform:translateY(40px);
+
 }
 
 to{
+
 opacity:1;
-transform:none;
+
+transform:translateY(0);
+
 }
 
 }
@@ -108,6 +129,7 @@ transform:none;
 
 
     box-shadow:
+
     0 30px 70px rgba(0,0,0,.15);
 
 
@@ -119,14 +141,18 @@ transform:none;
 
 .avatar:hover{
 
-    transform:scale(1.08)
+    transform:
+
+    scale(1.08)
     rotate(3deg);
 
 }
 
 
 
+
 /* 标题 */
+
 
 h1{
 
@@ -175,6 +201,7 @@ h1{
 
     padding:18px 55px;
 
+
     margin:12px;
 
 
@@ -216,7 +243,9 @@ h1{
 
 
 
-/* 内容卡 */
+
+
+/* 内容卡片 */
 
 
 .card{
@@ -244,9 +273,10 @@ h1{
     0 30px 80px rgba(0,0,0,.08);
 
 
-    animation:fade 1s ease;
+    animation:fade 1.2s ease;
 
 }
+
 
 
 
@@ -273,33 +303,49 @@ h1{
 
 
 
+
 footer{
+
 
     text-align:center;
 
+
     margin:100px 0 40px;
 
+
     color:#86868b;
+
 
 }
 
 
 
-/* 星星 */
+
+
+/* 点击星星 */
 
 .star{
 
-position:fixed;
 
-pointer-events:none;
+    position:fixed;
 
-z-index:99999;
 
-font-size:22px;
+    pointer-events:none;
 
-animation:
 
-sparkle .8s forwards;
+    user-select:none;
+
+
+    z-index:99999;
+
+
+    font-size:22px;
+
+
+    animation:
+
+    sparkle .8s ease-out forwards;
+
 
 }
 
@@ -310,32 +356,64 @@ sparkle .8s forwards;
 
 from{
 
+
 opacity:1;
 
+
 transform:
+
+translate(0,0)
+
 scale(1);
+
 
 }
 
 
 to{
 
+
 opacity:0;
 
+
 transform:
+
 translate(var(--x),var(--y))
+
 scale(.1)
+
 rotate(360deg);
 
-}
 
 }
 
 
+}
 
-/* 手机 */
+
+
+
+
+/* 手机适配 */
+
 
 @media(max-width:600px){
+
+
+.container{
+
+padding:20px;
+
+}
+
+
+
+.hero{
+
+padding:60px 0;
+
+}
+
 
 
 h1{
@@ -348,9 +426,19 @@ letter-spacing:8px;
 
 
 
-.hero{
+.subtitle{
 
-padding:60px 0;
+font-size:20px;
+
+}
+
+
+
+.avatar{
+
+width:130px;
+
+height:130px;
 
 }
 
@@ -372,13 +460,248 @@ font-size:32px;
 
 
 
+.card p{
+
+font-size:17px;
+
+}
+
+
+
 .nav a{
 
 padding:15px 35px;
 
-}
+font-size:16px;
 
 }
+
+
+}
+
 
 
 </style>
+
+</head>
+
+
+
+<body>
+
+
+<div class="container">
+
+
+
+<section class="hero">
+
+
+<img
+
+class="avatar"
+
+src="微信图片_20251228180549_142_1.jpg"
+
+alt="BPWMC头像">
+
+
+
+<h1>
+
+BPWMC
+
+</h1>
+
+
+
+<p class="subtitle">
+
+Create · Record · Share
+
+</p>
+
+
+
+<div class="nav">
+
+
+<a href="blog.html">
+
+日志
+
+</a>
+
+
+<a href="download.html">
+
+资源
+
+</a>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+<section class="card">
+
+
+<h2>
+
+Welcome
+
+</h2>
+
+
+
+<p>
+
+欢迎来到 BPWMC 的个人空间。
+
+</p>
+
+
+<p>
+
+记录想法，保存回忆，分享资源。
+
+</p>
+
+
+
+</section>
+
+
+
+
+
+<footer>
+
+© 2026 BPWMC
+
+</footer>
+
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+document.addEventListener("click",function(e){
+
+
+const icons=[
+
+"✦",
+
+"✧",
+
+"⭐",
+
+"✨"
+
+];
+
+
+
+for(let i=0;i<8;i++){
+
+
+
+const star=document.createElement("div");
+
+
+star.className="star";
+
+
+star.textContent=
+
+icons[Math.floor(Math.random()*icons.length)];
+
+
+
+star.style.left=
+
+e.clientX+"px";
+
+
+star.style.top=
+
+e.clientY+"px";
+
+
+
+let angle=
+
+Math.random()*Math.PI*2;
+
+
+
+let distance=
+
+30+Math.random()*70;
+
+
+
+star.style.setProperty(
+
+"--x",
+
+Math.cos(angle)*distance+"px"
+
+);
+
+
+
+star.style.setProperty(
+
+"--y",
+
+Math.sin(angle)*distance+"px"
+
+);
+
+
+
+document.body.appendChild(star);
+
+
+
+setTimeout(()=>{
+
+
+star.remove();
+
+
+},800);
+
+
+
+}
+
+
+
+});
+
+
+
+</script>
+
+
+
+</body>
+
+</html>

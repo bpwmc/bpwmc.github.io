@@ -8,7 +8,6 @@
 
 <title>别碰我蜜茶</title>
 
-
 <style>
 
 *{
@@ -17,317 +16,209 @@
     box-sizing:border-box;
 }
 
-
 body{
-
-    font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Helvetica Neue",
-    Arial,
-    sans-serif;
-
+    font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
     background:#fbfbfd;
-
     color:#1d1d1f;
-
+    overflow-x:hidden;
 }
-
-
 
 .container{
-
     max-width:1100px;
-
     margin:auto;
-
     padding:60px 30px;
-
 }
-
-
 
 /* 顶部 */
 
-
 .hero{
-
     text-align:center;
-
     padding:100px 0;
-
 }
-
-
 
 .avatar{
-
     width:160px;
-
     height:160px;
-
     border-radius:50%;
-
     object-fit:cover;
-
     margin-bottom:40px;
-
-    box-shadow:
-    0 20px 50px rgba(0,0,0,.12);
-
+    box-shadow:0 20px 50px rgba(0,0,0,.12);
 }
-
-
 
 h1{
-
     font-size:80px;
-
     letter-spacing:12px;
-
     font-weight:700;
-
 }
-
-
 
 .subtitle{
-
     margin-top:25px;
-
     font-size:24px;
-
     color:#6e6e73;
-
 }
 
-
-
-
-
-/* 按钮 */
-
+/* 导航按钮 */
 
 .nav{
-
     margin-top:60px;
-
 }
-
-
 
 .nav a{
-
-
     display:inline-block;
-
     text-decoration:none;
-
     color:#1d1d1f;
-
-
     background:white;
-
-
     padding:16px 45px;
-
-
     margin:10px;
-
-
     border-radius:40px;
-
-
     font-size:18px;
-
-
-    box-shadow:
-
-    0 10px 30px rgba(0,0,0,.08);
-
-
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
     transition:.3s;
-
 }
-
-
 
 .nav a:hover{
-
     transform:translateY(-5px);
-
 }
 
-
-
-
-
-/* 中间卡片 */
-
+/* Welcome卡片 */
 
 .card{
-
-
     background:white;
-
-
     border-radius:35px;
-
-
     padding:70px;
-
-
     margin-top:50px;
-
-
-    box-shadow:
-
-    0 20px 60px rgba(0,0,0,.06);
-
-
+    box-shadow:0 20px 60px rgba(0,0,0,.06);
 }
-
-
 
 .card h2{
-
-
     font-size:42px;
-
     margin-bottom:30px;
-
 }
-
-
 
 .card p{
-
-
     color:#6e6e73;
-
     font-size:20px;
-
     line-height:2;
-
 }
-
-
-
 
 footer{
-
-
     text-align:center;
-
     margin-top:100px;
-
-
     color:#86868b;
-
 }
 
+/* 点击星星动画 */
 
+.star{
+    position:fixed;
+    pointer-events:none;
+    user-select:none;
+    z-index:99999;
+    font-size:20px;
+    animation:sparkle .8s ease-out forwards;
+}
 
+@keyframes sparkle{
+    from{
+        opacity:1;
+        transform:translate(0,0) scale(1);
+    }
+    to{
+        opacity:0;
+        transform:translate(var(--x),var(--y)) scale(.2) rotate(180deg);
+    }
+}
 
 </style>
 
 </head>
 
-
 <body>
-
 
 <div class="container">
 
-
 <section class="hero">
 
-
-
-<img 
+<img
 class="avatar"
 src="微信图片_20251228180549_142_1.jpg"
 alt="BPWMC头像">
 
-
-
-<h1>
-
-BPWMC
-
-</h1>
-
+<h1>BPWMC</h1>
 
 <p class="subtitle">
-
 Create · Record · Share
-
 </p>
-
-
 
 <div class="nav">
 
-
 <a href="blog.html">
-
 日志
-
 </a>
-
 
 <a href="download.html">
-
 资源
-
 </a>
-
 
 </div>
 
-
 </section>
-
-
-
 
 <section class="card">
 
-
-<h2>
-
-Welcome
-
-</h2>
-
+<h2>Welcome</h2>
 
 <p>
-
 欢迎来到 BPWMC 的个人空间。
-
 </p>
-
 
 <p>
-
 记录想法，保存回忆，分享资源。
-
 </p>
-
 
 </section>
 
-
-
 <footer>
-
 © 2026 BPWMC
-
 </footer>
-
 
 </div>
 
+<script>
+
+document.addEventListener("click",function(e){
+
+    const icons=["✦","✧","⭐","✨"];
+
+    for(let i=0;i<6;i++){
+
+        const star=document.createElement("div");
+
+        star.className="star";
+
+        star.textContent=icons[Math.floor(Math.random()*icons.length)];
+
+        const angle=Math.random()*Math.PI*2;
+
+        const distance=25+Math.random()*50;
+
+        star.style.left=e.clientX+"px";
+        star.style.top=e.clientY+"px";
+
+        star.style.setProperty("--x",Math.cos(angle)*distance+"px");
+        star.style.setProperty("--y",Math.sin(angle)*distance+"px");
+
+        document.body.appendChild(star);
+
+        setTimeout(()=>{
+            star.remove();
+        },800);
+
+    }
+
+});
+
+</script>
 
 </body>
 

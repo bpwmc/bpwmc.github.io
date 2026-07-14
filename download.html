@@ -203,7 +203,9 @@ h1{
 /* 玻璃卡片 */
 
 .card{
+opacity:0;
 
+animation-fill-mode:forwards;
 
 background:
 
@@ -298,7 +300,27 @@ transition:.3s;
 
 
 
+button{
+
+transition:.35s;
+
+}
+
+
 button:hover{
+
+
+transform:
+
+translateY(-8px)
+scale(1.08);
+
+
+box-shadow:
+
+0 20px 50px rgba(0,0,0,.2);
+
+}
 
 
 transform:
@@ -320,7 +342,102 @@ color:#1d1d1f;
 font-weight:600;
 
 }
+/* 页面进入动画 */
 
+@keyframes bounceIn{
+
+0%{
+
+opacity:0;
+
+transform:
+
+translateY(80px)
+scale(.8);
+
+}
+
+
+60%{
+
+opacity:1;
+
+transform:
+
+translateY(-15px)
+scale(1.05);
+
+}
+
+
+80%{
+
+transform:
+
+translateY(5px)
+scale(.98);
+
+}
+
+
+100%{
+
+transform:
+
+translateY(0)
+scale(1);
+
+}
+
+}
+
+
+
+/* 标题进入 */
+
+h1{
+
+animation:
+
+bounceIn 1s cubic-bezier(.34,1.56,.64,1);
+
+}
+
+
+
+/* 卡片进入 */
+
+.card{
+
+animation:
+
+bounceIn .9s cubic-bezier(.34,1.56,.64,1);
+
+}
+
+
+
+/* 每个卡片延迟 */
+
+.card:nth-child(1){
+
+animation-delay:.15s;
+
+}
+
+
+.card:nth-child(2){
+
+animation-delay:.3s;
+
+}
+
+
+.card:nth-child(3){
+
+animation-delay:.45s;
+
+}
 
 </style>
 

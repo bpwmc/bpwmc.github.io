@@ -398,7 +398,13 @@ rotate(360deg);
 
 
 @media(max-width:600px){
+.liquid-title{
 
+font-size:45px;
+
+letter-spacing:6px;
+
+}
 
 .container{
 
@@ -637,7 +643,117 @@ scale(.9);
 
 
 }
+/* 液态玻璃标题 */
 
+.liquid-title{
+
+
+font-size:80px;
+
+letter-spacing:12px;
+
+font-weight:800;
+
+
+/* 透明玻璃 */
+
+color:rgba(255,255,255,.35);
+
+
+
+background:
+
+linear-gradient(
+
+120deg,
+
+rgba(255,255,255,.9),
+
+rgba(255,255,255,.25),
+
+rgba(255,255,255,.8)
+
+);
+
+
+/* 文字裁剪 */
+
+-webkit-background-clip:text;
+
+background-clip:text;
+
+
+
+/* 玻璃高光 */
+
+-webkit-text-stroke:
+
+1px rgba(255,255,255,.6);
+
+
+
+text-shadow:
+
+0 10px 40px rgba(0,0,0,.15);
+
+
+
+animation:
+
+glassMove 6s infinite linear;
+
+
+}
+
+
+
+/* 光泽流动 */
+
+@keyframes glassMove{
+
+
+0%{
+
+filter:
+
+brightness(1);
+
+background-position:
+
+0%;
+
+}
+
+
+
+50%{
+
+filter:
+
+brightness(1.5);
+
+background-position:
+
+100%;
+
+}
+
+
+
+100%{
+
+filter:
+
+brightness(1);
+
+background-position:
+
+0%;
+
+}
+
+
+}
 
 </style>
 
@@ -671,11 +787,8 @@ src="微信图片_20251228180549_142_1.jpg"
 alt="BPWMC头像">
 
 
-
-<h1>
-
-BPWMC
-
+<h1 class="liquid-title">
+别碰我蜜茶
 </h1>
 
 

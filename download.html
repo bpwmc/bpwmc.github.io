@@ -203,57 +203,57 @@ h1{
 /* 玻璃卡片 */
 
 .card{
-opacity:0;
 
-animation-fill-mode:forwards;
-
-background:
-
-rgba(255,255,255,.35);
+    opacity:0;
 
 
-backdrop-filter:
+    animation:
 
-blur(25px);
+    bounceIn .9s cubic-bezier(.34,1.56,.64,1) forwards;
 
 
 
--webkit-backdrop-filter:
+    background:
 
-blur(25px);
-
-
-
-border:
-
-1px solid rgba(255,255,255,.5);
+    rgba(255,255,255,.35);
 
 
 
-padding:35px;
+    backdrop-filter:
 
-
-margin:25px 0;
-
-
-border-radius:35px;
+    blur(25px);
 
 
 
-box-shadow:
+    -webkit-backdrop-filter:
 
-0 20px 60px rgba(0,0,0,.12);
-
-
-
-display:flex;
+    blur(25px);
 
 
-justify-content:space-between;
+
+    border:
+
+    1px solid rgba(255,255,255,.5);
 
 
-align-items:center;
 
+    padding:35px;
+
+    margin:25px 0;
+
+    border-radius:35px;
+
+
+    box-shadow:
+
+    0 20px 60px rgba(0,0,0,.12);
+
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
 
 }
 

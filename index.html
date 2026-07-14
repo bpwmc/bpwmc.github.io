@@ -643,84 +643,83 @@ scale(.9);
 
 
 }
-/* 液态玻璃标题 */
-
 .liquid-title{
 
+    position:relative;
 
-font-size:80px;
+    font-size:80px;
 
-letter-spacing:12px;
+    letter-spacing:12px;
 
-font-weight:800;
-
-
-/* 透明玻璃 */
-
-color:rgba(255,255,255,.35);
+    font-weight:900;
 
 
-
-background:
-
-linear-gradient(
-
-120deg,
-
-rgba(255,255,255,.9),
-
-rgba(255,255,255,.25),
-
-rgba(255,255,255,.8)
-
-);
+    color:white;
 
 
-/* 文字裁剪 */
+    background:
 
--webkit-background-clip:text;
+    linear-gradient(
+        120deg,
+        #ffffff 0%,
+        rgba(255,255,255,.55) 35%,
+        #ffffff 50%,
+        rgba(255,255,255,.65) 70%,
+        #ffffff 100%
+    );
 
-background-clip:text;
+
+    background-size:200% auto;
 
 
+    -webkit-background-clip:text;
 
-/* 玻璃高光 */
+    background-clip:text;
 
--webkit-text-stroke:
 
-1px rgba(255,255,255,.6);
+    -webkit-text-fill-color:transparent;
 
 
 
-text-shadow:
+    /* 玻璃边缘 */
 
-0 10px 40px rgba(0,0,0,.15);
+    -webkit-text-stroke:
+
+    1.5px rgba(255,255,255,.85);
 
 
 
-animation:
+    /* 立体玻璃阴影 */
 
-glassMove 6s infinite linear;
+    text-shadow:
 
+    0 0 15px rgba(255,255,255,.6),
+
+    0 10px 30px rgba(0,0,0,.25),
+
+    0 30px 70px rgba(0,0,0,.2);
+
+
+
+    filter:
+
+    drop-shadow(
+    0 10px 20px rgba(0,0,0,.25)
+    );
+
+
+
+    animation:
+
+    glassShine 6s infinite linear;
 
 }
-
-
-
-/* 光泽流动 */
-
-@keyframes glassMove{
-
+@keyframes glassShine{
 
 0%{
 
-filter:
-
-brightness(1);
-
 background-position:
-
-0%;
+0% center;
 
 }
 
@@ -728,13 +727,8 @@ background-position:
 
 50%{
 
-filter:
-
-brightness(1.5);
-
 background-position:
-
-100%;
+100% center;
 
 }
 
@@ -742,19 +736,12 @@ background-position:
 
 100%{
 
-filter:
-
-brightness(1);
-
 background-position:
-
-0%;
-
-}
-
+0% center;
 
 }
 
+}
 </style>
 
 

@@ -1,1061 +1,326 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>别碰我蜜茶</title>
-
-
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+:root {
+  color-scheme: dark;
+  --bg: #04101f;
+  --bg-deep: #020814;
+  --panel: rgba(15, 30, 58, 0.76);
+  --panel-border: rgba(255, 255, 255, 0.12);
+  --text: #eef2ff;
+  --muted: #94a3b8;
+  --accent: #60a5fa;
+  --accent-2: #fb7185;
+  --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  --glass: rgba(255, 255, 255, 0.08);
 }
-
-
-body{
-
-    font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Helvetica Neue",
-    Arial,
-    sans-serif;
-
-    background:#fbfbfd;
-
-    color:#1d1d1f;
-
-    overflow-x:hidden;
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-
-/* 背景光 */
-
-body::before{
-
-    content:"";
-
-    position:fixed;
-
-    width:600px;
-
-    height:600px;
-
-    background:
-    radial-gradient(circle,
-    rgba(0,122,255,.18),
-    transparent 70%);
-
-    top:-200px;
-
-    left:-200px;
-
-    z-index:-1;
-
+html, body {
+  min-height: 100%;
 }
-
-
-
-/* 主容器 */
-
-.container{
-
-    max-width:1100px;
-
-    margin:auto;
-
-    padding:40px 30px;
-
+body {
+  font-family: "Segoe UI", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.16), transparent 24%),
+              radial-gradient(circle at bottom right, rgba(251, 113, 133, 0.12), transparent 25%),
+              linear-gradient(180deg, #020712 0%, #04101f 100%);
+  color: var(--text);
+  overflow-x: hidden;
 }
-
-
-
-/* 首页 */
-
-.hero{
-
-    text-align:center;
-
-    padding:100px 0;
-
-    animation:fade 1s ease;
-
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"%3E%3Ccircle fill="rgba(255,255,255,0.03)" cx="100" cy="100" r="100"/%3E%3C/svg%3E') repeat;
+  opacity: 0.12;
+  pointer-events: none;
 }
-
-
-
-@keyframes fade{
-
-from{
-
-opacity:0;
-
-transform:translateY(40px);
-
+.scene {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
 }
-
-to{
-
-opacity:1;
-
-transform:translateY(0);
-
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.75;
+  animation: float 18s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
 }
-
+.orb:nth-child(1) { width: 420px; height: 420px; background: rgba(96, 165, 250, 0.32); top: -120px; left: 8%; }
+.orb:nth-child(2) { width: 360px; height: 360px; background: rgba(251, 113, 133, 0.28); top: 80px; right: 6%; animation-duration: 22s; }
+.orb:nth-child(3) { width: 320px; height: 320px; background: rgba(52, 211, 153, 0.22); bottom: 10%; left: 18%; animation-duration: 20s; }
+.orb:nth-child(4) { width: 280px; height: 280px; background: rgba(168, 85, 247, 0.20); bottom: 0; right: 18%; animation-duration: 24s; }
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(24px, -34px) scale(1.08); }
+  100% { transform: translate(-28px, 24px) scale(0.96); }
 }
-
-
-
-/* 头像 */
-
-.avatar{
-
-    width:170px;
-
-    height:170px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    margin-bottom:40px;
-
-
-    box-shadow:
-
-    0 30px 70px rgba(0,0,0,.15);
-
-
-    transition:.4s;
-
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 40px 30px 80px;
 }
-
-
-
-.avatar:hover{
-
-    transform:
-
-    scale(1.08)
-    rotate(3deg);
-
+.hero, .card, footer {
+  opacity: 0;
+  transform: translateY(48px);
+  animation-name: fadeInUp;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
-
-
-
-
-/* 标题 */
-
-
-h1{
-
-    font-size:80px;
-
-    letter-spacing:15px;
-
-    font-weight:800;
-
+.hero { animation-delay: 0.12s; }
+.card { animation-delay: 0.24s; }
+footer { animation-delay: 0.34s; }
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
 }
-
-
-
-.subtitle{
-
-    margin-top:25px;
-
-    font-size:26px;
-
-    color:#6e6e73;
-
+.hero {
+  text-align: center;
+  padding: 90px 0 60px;
 }
-
-/* 液态玻璃按钮 */
-
-.nav a{
-
-    display:inline-block;
-
-    position:relative;
-
-    overflow:hidden;
-
-
-    text-decoration:none;
-
-    color:#1d1d1f;
-
-
-    padding:18px 55px;
-
-    margin:12px;
-
-
-    border-radius:50px;
-
-
-
-    /* 半透明玻璃 */
-
-    background:
-
-    linear-gradient(
-        135deg,
-        rgba(255,255,255,.45),
-        rgba(255,255,255,.15)
-    );
-
-
-
-    backdrop-filter:
-
-    blur(20px);
-
-
-
-    -webkit-backdrop-filter:
-
-    blur(20px);
-
-
-
-    /* 玻璃边缘 */
-
-    border:
-
-    1px solid rgba(255,255,255,.6);
-
-
-
-    box-shadow:
-
-    0 15px 40px rgba(0,0,0,.15),
-
-    inset 0 0 20px rgba(255,255,255,.35);
-
-
-
-    font-size:18px;
-
-    font-weight:600;
-
-
-    transition:.4s;
-
+.avatar {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgba(255,255,255,0.16);
+  box-shadow: 0 26px 70px rgba(0,0,0,0.28);
+  transition: transform 0.4s ease;
 }
-
-
-
-/* 鼠标经过 */
-
-.nav a:hover{
-
-
-    transform:
-
-    translateY(-8px)
-    scale(1.08);
-
-
-
-    box-shadow:
-
-    0 25px 60px rgba(0,0,0,.25),
-
-    inset 0 0 30px rgba(255,255,255,.6);
-
+.avatar:hover {
+  transform: scale(1.05) rotate(2deg);
 }
-
-
-
-/* 按钮流光 */
-
-.nav a::before{
-
-
-    content:"";
-
-
-    position:absolute;
-
-
-    top:0;
-
-    left:-120%;
-
-
-    width:80%;
-
-    height:100%;
-
-
-
-    background:
-
-    linear-gradient(
-
-    120deg,
-
-    transparent,
-
-    rgba(255,255,255,.8),
-
-    transparent
-
-    );
-
-
-    transform:skewX(-25deg);
-
-
-
-    transition:.6s;
-
-
+.liquid-title {
+  position: relative;
+  margin-top: 28px;
+  font-size: clamp(3.5rem, 7vw, 5.5rem);
+  letter-spacing: 0.32em;
+  line-height: 0.95;
+  font-weight: 900;
+  color: transparent;
+  background: linear-gradient(120deg, #ffffff, rgba(255,255,255,0.7) 42%, #ffffff 68%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow: 0 0 18px rgba(255,255,255,0.22), 0 16px 45px rgba(0,0,0,0.28);
+  animation: shine 6s infinite linear;
 }
-
-
-
-.nav a:hover::before{
-
-
-    left:150%;
-
-
+@keyframes shine {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
 }
-
-
-
-
-
-/* 内容卡片 */
-
-
-.card{
-
-
-    background:
-
-    rgba(255,255,255,.75);
-
-
-    backdrop-filter:blur(20px);
-
-
-    border-radius:40px;
-
-
-    padding:70px;
-
-
-    margin-top:60px;
-
-
-    box-shadow:
-
-    0 30px 80px rgba(0,0,0,.08);
-
-
-    animation:fade 1.2s ease;
-
+.subtitle {
+  margin-top: 20px;
+  font-size: 1.15rem;
+  color: var(--muted);
 }
-
-
-
-
-.card h2{
-
-    font-size:45px;
-
-    margin-bottom:30px;
-
+.nav {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
 }
-
-
-
-.card p{
-
-    color:#6e6e73;
-
-    font-size:20px;
-
-    line-height:2;
-
+.nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 52px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: inset 0 0 18px rgba(255,255,255,0.08), 0 20px 48px rgba(0,0,0,0.16);
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
 }
-
-
-
-
-
-footer{
-
-
-    text-align:center;
-
-
-    margin:100px 0 40px;
-
-
-    color:#86868b;
-
-
+.nav a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.7), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.65s ease;
 }
-
-
-
-
-
-/* 点击星星 */
-
-.star{
-
-
-    position:fixed;
-
-
-    pointer-events:none;
-
-
-    user-select:none;
-
-
-    z-index:99999;
-
-
-    font-size:22px;
-
-
-    animation:
-
-    sparkle .8s ease-out forwards;
-
-
+.nav a:hover {
+  transform: translateY(-8px) scale(1.04);
+  background: rgba(255,255,255,0.14);
+  box-shadow: inset 0 0 24px rgba(255,255,255,0.12), 0 26px 60px rgba(0,0,0,0.22);
 }
-
-
-
-@keyframes sparkle{
-
-
-from{
-
-
-opacity:1;
-
-
-transform:
-
-translate(0,0)
-
-scale(1);
-
-
+.nav a:hover::before { left: 160%; }
+.card {
+  margin-top: 52px;
+  padding: 60px;
+  border-radius: 36px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: var(--shadow);
 }
-
-
-to{
-
-
-opacity:0;
-
-
-transform:
-
-translate(var(--x),var(--y))
-
-scale(.1)
-
-rotate(360deg);
-
-
+.card h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 22px;
 }
-
-
+.card p {
+  line-height: 1.85;
+  font-size: 1.05rem;
+  color: var(--muted);
 }
-
-
-
-
-
-/* 手机适配 */
-
-
-@media(max-width:600px){
-.liquid-title{
-
-font-size:45px;
-
-letter-spacing:6px;
-
+footer {
+  text-align: center;
+  margin-top: 76px;
+  color: rgba(226,232,255,0.72);
 }
-
-.container{
-
-padding:20px;
-
+.theme-switch {
+  position: fixed;
+  top: 22px;
+  right: 22px;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
 }
-
-
-
-.hero{
-
-padding:60px 0;
-
+.theme-switch:hover { transform: scale(1.08); }
+.sparkle {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(96,165,250,0.8) 45%, transparent 65%);
+  filter: blur(2px);
+  animation: sparkle 0.8s forwards;
 }
-
-
-
-h1{
-
-font-size:45px;
-
-letter-spacing:8px;
-
+@keyframes sparkle {
+  to { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; }
 }
-
-
-
-.subtitle{
-
-font-size:20px;
-
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: rgba(96,165,250,0.18);
+  border: 1px solid rgba(96,165,250,0.38);
+  animation: ripple 0.7s ease-out forwards;
 }
-
-
-
-.avatar{
-
-width:130px;
-
-height:130px;
-
+@keyframes ripple {
+  to { transform: scale(3); opacity: 0; }
 }
-
-
-
-.card{
-
-padding:35px;
-
-}
-
-
-
-.card h2{
-
-font-size:32px;
-
-}
-
-
-
-.card p{
-
-font-size:17px;
-
-}
-
-
-
-.nav a{
-
-padding:15px 35px;
-
-font-size:16px;
-
-}
-
-
-}
-/* 流体背景 */
-
-.fluid-bg{
-
-    position:fixed;
-
-    width:100%;
-
-    height:100%;
-
-    top:0;
-
-    left:0;
-
-    overflow:hidden;
-
-    z-index:-2;
-
-    background:#fbfbfd;
-
-}
-
-
-
-/* 彩色流体 */
-
-.blob{
-
-    position:absolute;
-
-    border-radius:50%;
-
-    filter:blur(80px);
-
-    opacity:.65;
-
-    animation:move 18s infinite alternate ease-in-out;
-
-}
-
-
-
-/* 蓝色 */
-
-.blob1{
-
-    width:500px;
-
-    height:500px;
-
-    background:#007aff;
-
-    top:-150px;
-
-    left:-100px;
-
-}
-
-
-
-/* 紫色 */
-
-.blob2{
-
-    width:450px;
-
-    height:450px;
-
-    background:#af52de;
-
-    right:-100px;
-
-    top:100px;
-
-    animation-duration:22s;
-
-}
-
-
-
-/* 粉色 */
-
-.blob3{
-
-    width:400px;
-
-    height:400px;
-
-    background:#ff2d55;
-
-    bottom:-100px;
-
-    left:200px;
-
-    animation-duration:25s;
-
-}
-
-
-
-/* 黄色 */
-
-.blob4{
-
-    width:350px;
-
-    height:350px;
-
-    background:#ffcc00;
-
-    right:250px;
-
-    bottom:-100px;
-
-    animation-duration:20s;
-
-}
-
-
-
-
-
-@keyframes move{
-
-
-0%{
-
-transform:
-
-translate(0,0)
-scale(1);
-
-}
-
-
-
-50%{
-
-transform:
-
-translate(120px,80px)
-scale(1.2);
-
-}
-
-
-
-100%{
-
-transform:
-
-translate(-80px,150px)
-scale(.9);
-
-}
-
-
-
-}
-.liquid-title{
-
-    position:relative;
-
-    font-size:80px;
-
-    letter-spacing:12px;
-
-    font-weight:900;
-
-
-    color:white;
-
-
-    background:
-
-    linear-gradient(
-        120deg,
-        #ffffff 0%,
-        rgba(255,255,255,.55) 35%,
-        #ffffff 50%,
-        rgba(255,255,255,.65) 70%,
-        #ffffff 100%
-    );
-
-
-    background-size:200% auto;
-
-
-    -webkit-background-clip:text;
-
-    background-clip:text;
-
-
-    -webkit-text-fill-color:transparent;
-
-
-
-    /* 玻璃边缘 */
-
-    -webkit-text-stroke:
-
-    1.5px rgba(255,255,255,.85);
-
-
-
-    /* 立体玻璃阴影 */
-
-    text-shadow:
-
-    0 0 15px rgba(255,255,255,.6),
-
-    0 10px 30px rgba(0,0,0,.25),
-
-    0 30px 70px rgba(0,0,0,.2);
-
-
-
-    filter:
-
-    drop-shadow(
-    0 10px 20px rgba(0,0,0,.25)
-    );
-
-
-
-    animation:
-
-    glassShine 6s infinite linear;
-
-}
-@keyframes glassShine{
-
-0%{
-
-background-position:
-0% center;
-
-}
-
-
-
-50%{
-
-background-position:
-100% center;
-
-}
-
-
-
-100%{
-
-background-position:
-0% center;
-
-}
-
+@media(max-width: 720px) {
+  .container { padding: 24px 18px 64px; }
+  .hero { padding: 70px 0 40px; }
+  .nav { gap: 12px; }
+  .nav a { padding: 14px 32px; font-size: 0.95rem; }
+  .card { padding: 32px; }
+  .liquid-title { font-size: clamp(2.8rem, 12vw, 4rem); letter-spacing: 0.18em; }
 }
 </style>
-
-
 </head>
-
-
-
 <body>
-<div class="fluid-bg">
-    <div class="blob blob1"></div>
-    <div class="blob blob2"></div>
-    <div class="blob blob3"></div>
-    <div class="blob blob4"></div>
+<div class="scene">
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
 </div>
-
-
+<button class="theme-switch" aria-label="切换主题">🌙</button>
 <div class="container">
-
-
-
-<section class="hero">
-
-
-<img
-
-class="avatar"
-
-src="微信图片_20251228180549_142_1.jpg"
-
-alt="BPWMC头像">
-
-
-<h1 class="liquid-title">
-别碰我蜜茶
-</h1>
-
-
-
-<p class="subtitle">
-
-Create · Record · Share
-
-</p>
-
-
-
-<div class="nav">
-
-
-<a href="blog.html">
-
-日志
-
-</a>
-
-
-<a href="download.html">
-
-资源
-
-</a>
-
-
-
+  <section class="hero">
+    <img class="avatar" src="微信图片_20251228180549_142_1.jpg" alt="BPWMC头像">
+    <h1 class="liquid-title">别碰我蜜茶</h1>
+    <p class="subtitle">Create · Record · Share</p>
+    <div class="nav">
+      <a href="blog.html">日志</a>
+      <a href="download.html">资源</a>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Welcome</h2>
+    <p>欢迎来到 BPWMC 的个人空间。这里记录灵感与日常，储存记忆并分享精选资源。</p>
+  </section>
+  <footer>© 2026 BPWMC</footer>
 </div>
-
-
-
-</section>
-
-
-
-
-<section class="card">
-
-
-<h2>
-
-Welcome
-
-</h2>
-
-
-
-<p>
-
-欢迎来到 BPWMC 的个人空间。
-
-</p>
-
-
-<p>
-
-记录想法，保存回忆，分享资源。
-
-</p>
-
-
-
-</section>
-
-
-
-
-
-<footer>
-
-© 2026 BPWMC
-
-</footer>
-
-
-
-
-</div>
-
-
-
-
-
 <script>
-
-
-document.addEventListener("click",function(e){
-
-
-const icons=[
-
-"✦",
-
-"✧",
-
-"⭐",
-
-"✨"
-
-];
-
-
-
-for(let i=0;i<8;i++){
-
-
-
-const star=document.createElement("div");
-
-
-star.className="star";
-
-
-star.textContent=
-
-icons[Math.floor(Math.random()*icons.length)];
-
-
-
-star.style.left=
-
-e.clientX+"px";
-
-
-star.style.top=
-
-e.clientY+"px";
-
-
-
-let angle=
-
-Math.random()*Math.PI*2;
-
-
-
-let distance=
-
-30+Math.random()*70;
-
-
-
-star.style.setProperty(
-
-"--x",
-
-Math.cos(angle)*distance+"px"
-
-);
-
-
-
-star.style.setProperty(
-
-"--y",
-
-Math.sin(angle)*distance+"px"
-
-);
-
-
-
-document.body.appendChild(star);
-
-
-
-setTimeout(()=>{
-
-
-star.remove();
-
-
-},800);
-
-
-
+const body = document.body;
+const switchButton = document.querySelector('.theme-switch');
+const themeState = { dark: true };
+function toggleTheme() {
+  themeState.dark = !themeState.dark;
+  if (!themeState.dark) {
+    body.style.setProperty('--bg', '#f8fafc');
+    body.style.setProperty('--bg-deep', '#eff6ff');
+    body.style.setProperty('--panel', 'rgba(255,255,255,0.9)');
+    body.style.setProperty('--panel-border', 'rgba(15,23,42,0.12)');
+    body.style.setProperty('--text', '#0f172a');
+    body.style.setProperty('--muted', '#475569');
+    body.style.setProperty('--glass', 'rgba(255,255,255,0.72)');
+    body.style.background = 'radial-gradient(circle at top left, rgba(96, 165, 250, 0.12), transparent 24%), radial-gradient(circle at bottom right, rgba(251, 113, 133, 0.08), transparent 25%), linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%)';
+    switchButton.textContent = '☀️';
+  } else {
+    body.style.setProperty('--bg', '#04101f');
+    body.style.setProperty('--bg-deep', '#020814');
+    body.style.setProperty('--panel', 'rgba(15, 30, 58, 0.76)');
+    body.style.setProperty('--panel-border', 'rgba(255, 255, 255, 0.12)');
+    body.style.setProperty('--text', '#eef2ff');
+    body.style.setProperty('--muted', '#94a3b8');
+    body.style.setProperty('--glass', 'rgba(255, 255, 255, 0.08)');
+    body.style.background = 'radial-gradient(circle at top left, rgba(96, 165, 250, 0.16), transparent 24%), radial-gradient(circle at bottom right, rgba(251, 113, 133, 0.12), transparent 25%), linear-gradient(180deg, #020712 0%, #04101f 100%)';
+    switchButton.textContent = '🌙';
+  }
 }
-
-
-
+switchButton.addEventListener('click', toggleTheme);
+document.addEventListener('DOMContentLoaded', () => {
+  body.classList.add('loaded');
 });
-
-
-
+document.addEventListener('click', (event) => {
+  const target = event.target;
+  const rect = target.getBoundingClientRect();
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple';
+  const size = Math.max(rect.width, rect.height) * 1.2;
+  ripple.style.width = ripple.style.height = `${size}px`;
+  ripple.style.left = `${event.clientX - size / 2}px`;
+  ripple.style.top = `${event.clientY - size / 2}px`;
+  document.body.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 700);
+  for (let i = 0; i < 5; i++) {
+    const sparkle = document.createElement('span');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = `${event.clientX}px`;
+    sparkle.style.top = `${event.clientY}px`;
+    sparkle.style.setProperty('--dx', `${(Math.random() - 0.5) * 160}px`);
+    sparkle.style.setProperty('--dy', `${(Math.random() - 0.5) * 160}px`);
+    const hue = 190 + Math.random() * 120;
+    sparkle.style.background = `radial-gradient(circle, rgba(255,255,255,1) 0%, hsla(${hue}, 100%, 78%, 0.9) 35%, transparent 70%)`;
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 900);
+  }
+});
 </script>
-
-
-
 </body>
-
 </html>

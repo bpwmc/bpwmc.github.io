@@ -1,595 +1,285 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <title>BPWMC资源中心</title>
-
-
 <style>
-
+:root{
+  color-scheme: dark;
+  --bg: #080a12;
+  --card: rgba(255,255,255,0.16);
+  --card-border: rgba(255,255,255,0.18);
+  --text: #f8f8fb;
+  --muted: rgba(248,248,251,0.72);
+  --shadow: 0 30px 80px rgba(0,0,0,0.24);
+}
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
-
-
+html{
+  font-family:-apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  scroll-behavior:smooth;
+}
 body{
-
-    font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Helvetica Neue",
-    Arial;
-
-    color:#1d1d1f;
-
-    background:transparent;
-
-    min-height:100vh;
-
-    padding:50px;
-
-    overflow-x:hidden;
-
+  min-height:100vh;
+  background: radial-gradient(circle at top left, rgba(77,141,255,.24), transparent 24%),
+    radial-gradient(circle at top right, rgba(193,80,255,.2), transparent 22%),
+    radial-gradient(circle at bottom left, rgba(255,92,132,.16), transparent 20%),
+    radial-gradient(circle at bottom right, rgba(255,215,79,.12), transparent 24%),
+    linear-gradient(160deg,#090b16 0%,#11151f 45%,#0c1118 100%);
+  color:var(--text);
+  overflow-x:hidden;
+  padding:24px 16px;
 }
-
-
-/* 流体背景 */
-
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,0) 25%,rgba(0,0,0,.25));
+  pointer-events:none;
+  mix-blend-mode:screen;
+}
 .fluid-bg{
-
-    position:fixed;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:100%;
-
-
-    z-index:0;
-
-    overflow:hidden;
-
-    background:#fbfbfd;
-
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  overflow:hidden;
 }
-
-
-
 .blob{
-
-    position:absolute;
-
-    z-index:1;
-
-    border-radius:50%;
-
-    filter:blur(90px);
-
-    opacity:.8;
-
-    animation:move 18s infinite alternate;
-
+  position:absolute;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:.8;
+  animation:float 20s ease-in-out infinite alternate;
 }
-
 .blob1{
-
-    width:500px;
-
-    height:500px;
-
-    background:#007aff;
-
-    top:-150px;
-
-    left:-100px;
-
+  width:520px;
+  height:520px;
+  background:rgba(77,141,255,.95);
+  top:-180px;
+  left:-140px;
 }
-
-
 .blob2{
-
-    width:450px;
-
-    height:450px;
-
-    background:#af52de;
-
-    right:-100px;
-
-    top:100px;
-
+  width:440px;
+  height:440px;
+  background:rgba(193,80,255,.86);
+  top:80px;
+  right:-120px;
 }
-
-
-
 .blob3{
-
-    width:400px;
-
-    height:400px;
-
-    background:#ff2d55;
-
-    bottom:-100px;
-
-    left:200px;
-
+  width:420px;
+  height:420px;
+  background:rgba(255,92,132,.9);
+  bottom:-120px;
+  left:180px;
 }
-
-
-
 .blob4{
-
-    width:350px;
-
-    height:350px;
-
-    background:#ffcc00;
-
-    right:200px;
-
-    bottom:-100px;
-
+  width:360px;
+  height:360px;
+  background:rgba(255,215,79,.85);
+  bottom:-140px;
+  right:160px;
 }
-
-
-
-@keyframes move{
-
-0%{
-
-transform:translate(0,0);
-
+@keyframes float{
+  from{transform:translateY(-10px) translateX(0) scale(1);}
+  to{transform:translateY(24px) translateX(36px) scale(1.08);}
 }
-
-
-100%{
-
-transform:
-
-translate(120px,100px)
-scale(1.2);
-
+.container{
+  position:relative;
+  z-index:1;
+  max-width:960px;
+  margin:0 auto;
 }
-
-}
-
-
-
-/* 标题 */
-
-
 h1{
-    color:white;
-    text-shadow:
-    0 10px 40px rgba(0,0,0,.35);
-    
-    position:relative;
-
-    z-index:2;
-
-    text-align:center;
-
-    font-size:60px;
-
-    font-weight:900;
-
+  font-size:clamp(2.4rem,4vw,4.6rem);
+  text-align:center;
+  line-height:1.05;
+  letter-spacing:-.03em;
+  text-shadow:0 25px 80px rgba(0,0,0,.35);
+  margin-bottom:32px;
+  animation:fadeInUp .9s ease both;
 }
-
-
-/* 内容区域 */
-
-.box{
-
-    position:relative;
-
-    z-index:2;
-
-    max-width:900px;
-
-    margin:60px auto;
-
+.subtitle{
+  max-width:720px;
+  margin:0 auto 48px;
+  font-size:1rem;
+  color:var(--muted);
+  text-align:center;
+  line-height:1.8;
 }
-
-
-/* 玻璃卡片 */
-
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:24px;
+}
 .card{
-
-    opacity:0;
-
-
-    animation:
-
-    bounceIn .9s cubic-bezier(.34,1.56,.64,1) forwards;
-
-
-
-    background:
-
-    rgba(255,255,255,.35);
-
-
-
-    backdrop-filter:
-
-    blur(25px);
-
-
-
-    -webkit-backdrop-filter:
-
-    blur(25px);
-
-
-
-    border:
-
-    1px solid rgba(255,255,255,.5);
-
-
-
-    padding:35px;
-
-    margin:25px 0;
-
-    border-radius:35px;
-
-
-    box-shadow:
-
-    0 20px 60px rgba(0,0,0,.12);
-
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
+  position:relative;
+  overflow:hidden;
+  border-radius:32px;
+  background:var(--card);
+  border:1px solid var(--card-border);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  box-shadow:var(--shadow);
+  padding:28px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:190px;
+  animation:fadeInUp .9s ease both;
+  transition:transform .35s ease,box-shadow .35s ease,background .35s ease;
 }
-
-
-
-/* 下载按钮 */
-
-
-button{
-
-
-background:
-
-rgba(255,255,255,.45);
-
-
-
-border:
-
-1px solid rgba(255,255,255,.7);
-
-
-
-padding:14px 35px;
-
-
-
-border-radius:40px;
-
-
-
-box-shadow:
-
-inset 0 0 20px rgba(255,255,255,.5),
-
-0 10px 30px rgba(0,0,0,.15);
-
-
-
-transition:.3s;
-
-
+.card:hover{
+  transform:translateY(-12px);
+  box-shadow:0 40px 90px rgba(0,0,0,.28);
+  background:rgba(255,255,255,.22);
 }
-
-
-
-button{
-
-transition:.35s;
-
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.08),transparent 35%,rgba(255,255,255,.04));
+  pointer-events:none;
 }
-
-
-button:hover{
-
-
-transform:
-
-translateY(-8px)
-scale(1.08);
-
-
-box-shadow:
-
-0 20px 50px rgba(0,0,0,.2);
-
+.card h2{
+  font-size:1.4rem;
+  margin-bottom:10px;
+  color:#fff;
 }
-
-
-transform:
-
-translateY(-5px)
-scale(1.05);
-
-
+.card p{
+  font-size:1rem;
+  color:var(--muted);
+  line-height:1.65;
 }
-
-
-
-a{
-
-text-decoration:none;
-
-color:#1d1d1f;
-
-font-weight:600;
-
+.button-group{
+  margin-top:22px;
 }
-/* 页面进入动画 */
-
-@keyframes bounceIn{
-
-0%{
-
-opacity:0;
-
-transform:
-
-translateY(80px)
-scale(.8);
-
+.download-btn{
+  position:relative;
+  overflow:hidden;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:14px 28px;
+  border-radius:999px;
+  font-weight:700;
+  color:var(--text);
+  background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:inset 0 0 18px rgba(255,255,255,.12),0 14px 30px rgba(0,0,0,.16);
+  text-decoration:none;
+  transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
 }
-
-
-60%{
-
-opacity:1;
-
-transform:
-
-translateY(-15px)
-scale(1.05);
-
+.download-btn:hover{
+  transform:translateY(-2px) scale(1.02);
+  background:rgba(255,255,255,.28);
+  box-shadow:inset 0 0 22px rgba(255,255,255,.16),0 18px 38px rgba(0,0,0,.18);
 }
-
-
-80%{
-
-opacity:1;
-
-transform:
-
-translateY(5px)
-scale(.98);
-
+.download-btn:active{
+  transform:translateY(0) scale(0.98);
+  box-shadow:inset 0 0 18px rgba(255,255,255,.08),0 10px 20px rgba(0,0,0,.18);
 }
-
-
-100%{
-
-opacity:1;
-
-transform:
-
-translateY(0)
-scale(1);
-
+.download-btn:focus-visible{
+  outline:2px solid rgba(255,255,255,.7);
+  outline-offset:4px;
 }
-
+.card:nth-child(1){animation-delay:.12s;}
+.card:nth-child(2){animation-delay:.22s;}
+.card:nth-child(3){animation-delay:.32s;}
+.card:nth-child(4){animation-delay:.42s;}
+@keyframes fadeInUp{
+  from{opacity:0;transform:translateY(28px);}
+  to{opacity:1;transform:translateY(0);}
 }
-
-
-
-/* 标题进入 */
-
-h1{
-
-animation:
-
-bounceIn 1s cubic-bezier(.34,1.56,.64,1);
-
+@media(max-width:860px){
+  .grid{grid-template-columns:1fr;}
 }
-
-
-
-
-/* 每个卡片延迟 */
-
-.card:nth-child(1){
-
-animation-delay:.15s;
-
+@media(max-width:640px){
+  body{padding:18px 12px;}
+  .subtitle{margin-bottom:28px;}
+  .card{padding:22px;min-height:auto;}
+  .download-btn{width:100%;justify-content:center;}
 }
-
-
-.card:nth-child(2){
-
-animation-delay:.3s;
-
-}
-
-
-.card:nth-child(3){
-
-animation-delay:.45s;
-
-}
-
 </style>
-
 </head>
-
-
 <body>
-    <div class="fluid-bg">
-
-    <div class="blob blob1"></div>
-    <div class="blob blob2"></div>
-    <div class="blob blob3"></div>
-    <div class="blob blob4"></div>
-
+<div class="fluid-bg">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+  <div class="blob blob4"></div>
 </div>
-
-
-
-<h1>
-
-BPWMC 资源中心
-
-</h1>
-
-
-
-<div class="box">
-
-
-
-<div class="card">
-
-<div>
-
-<h2>
-壁纸合集
-</h2>
-
-<p>
-电脑壁纸
-</p>
-
+<div class="container">
+  <h1>BPWMC 资源中心</h1>
+  <p class="subtitle">精选资源汇总，现代玻璃质感界面与流畅动效，已针对手机和小屏幕优化。</p>
+  <div class="grid">
+    <article class="card">
+      <div>
+        <h2>壁纸合集</h2>
+        <p>电脑壁纸</p>
+      </div>
+      <div class="button-group">
+        <a class="download-btn" href="files/generated_image_1782651882954_0.png" download>下载</a>
+      </div>
+    </article>
+    <article class="card">
+      <div>
+        <h2>Cinema 4D 2024(需要梯子）</h2>
+        <p>更新时间 2026-07-14</p>
+      </div>
+      <div class="button-group">
+        <a class="download-btn" href="https://github.com/bpwmc/bpwmc.github.io/releases/download/bpwmc/Cinema.4D.2024.64bit.-.zip" download>下载</a>
+      </div>
+    </article>
+    <article class="card">
+      <div>
+        <h2>Cinema 4D 2024</h2>
+        <p>更新时间 2026-07-14</p>
+      </div>
+      <div class="button-group">
+        <a class="download-btn" href="https://bpwmcyy.oss-cn-beijing.aliyuncs.com/Cinema%204D%202024%2864bit%29%20-%20%E5%89%AF%E6%9C%AC.zip" download>下载</a>
+      </div>
+    </article>
+    <article class="card">
+      <div>
+        <h2>说明文档</h2>
+        <p>BPWMC使用说明</p>
+      </div>
+      <div class="button-group">
+        <a class="download-btn" href="files/新建文本文档.txt" download>下载</a>
+      </div>
+    </article>
+  </div>
 </div>
-
-
-<button>
-
-<a href="files/generated_image_1782651882954_0.png"
-download>
-
-下载
-
-</a>
-
-</button>
-
-
-</div>
-
-
-
-<div class="card">
-
-<div>
-
-<h2>
-Cinema 4D 2024(需要梯子）
-</h2>
-
-<p>
-更新时间2026-07-14
-</p>
-
-</div>
-
-
-<button>
-
-<a href="https://github.com/bpwmc/bpwmc.github.io/releases/download/bpwmc/Cinema.4D.2024.64bit.-.zip"
-download>
-
-下载
-
-</a>
-
-</button>
-
-
-
-
-</div>
-
-<div class="card">
-
-<div>
-
-<h2>
-Cinema 4D 2024
-</h2>
-
-<p>
-更新时间2026-07-14
-</p>
-
-</div>
-
-
-<button>
-
-<a href="http://localhost:8080/share/aG97XT"
-download>
-
-下载
-
-</a>
-
-</button>
-
-
-
-
-</div>
-
-<div class="card">
-
-<div>
-
-<h2>
-说明文档
-</h2>
-
-<p>
-BPWMC使用说明
-</p>
-
-</div>
-
-
-<button>
-
-<a href="files/新建文本文档.txt"
-download>
-
-下载
-
-</a>
-
-</button>
-
-
-</div>
-
-
-
-
-</div>
-
-
-
+<script>
+  document.querySelectorAll('.download-btn').forEach(btn => {
+    btn.addEventListener('pointerdown', function(e) {
+      const circle = document.createElement('span');
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height) * 2;
+      circle.style.position = 'absolute';
+      circle.style.left = `${e.clientX - rect.left - size / 2}px`;
+      circle.style.top = `${e.clientY - rect.top - size / 2}px`;
+      circle.style.width = `${size}px`;
+      circle.style.height = `${size}px`;
+      circle.style.background = 'rgba(255,255,255,.22)';
+      circle.style.borderRadius = '50%';
+      circle.style.pointerEvents = 'none';
+      circle.style.transform = 'scale(0)';
+      circle.style.opacity = '0.75';
+      circle.style.transition = 'transform .45s ease,opacity .45s ease';
+      this.appendChild(circle);
+      requestAnimationFrame(() => {
+        circle.style.transform = 'scale(1)';
+        circle.style.opacity = '0';
+      });
+      setTimeout(() => circle.remove(), 450);
+    });
+  });
+</script>
 </body>
-
 </html>

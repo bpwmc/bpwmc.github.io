@@ -38,7 +38,7 @@ body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,0) 25%,rgba(0,0,0,.25));
+  background:linear-gradient(135deg,rgba(255,255,255,.1),transparent 30%,rgba(255,255,255,.06));
   pointer-events:none;
   mix-blend-mode:screen;
 }
@@ -47,13 +47,38 @@ body::before{
   inset:0;
   z-index:-1;
   overflow:hidden;
+  background:radial-gradient(circle at var(--light-x, 20%) var(--light-y, 20%), rgba(255,255,255,.18), transparent 40%);
+  opacity:.9;
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  overflow:hidden;
+}
+.snowflake{
+  position:absolute;
+  top:-24px;
+  color:rgba(255,255,255,.9);
+  user-select:none;
+  font-size:1rem;
+  opacity:.85;
+  text-shadow:0 0 16px rgba(255,255,255,.8);
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{
+    transform:translate3d(0,110vh,0) rotate(360deg);
+    opacity:0;
+  }
 }
 .blob{
   position:absolute;
   border-radius:50%;
   filter:blur(100px);
   opacity:.8;
-  animation:float 20s ease-in-out infinite alternate;
+  mix-blend-mode:screen;
+  will-change:transform,opacity,filter;
+  animation:float 20s ease-in-out infinite alternate, flow 30s ease-in-out infinite;
 }
 .blob1{
   width:520px;
@@ -61,6 +86,8 @@ body::before{
   background:rgba(77,141,255,.95);
   top:-180px;
   left:-140px;
+  animation-duration:24s;
+  animation-delay:-2s;
 }
 .blob2{
   width:440px;
@@ -68,6 +95,8 @@ body::before{
   background:rgba(193,80,255,.86);
   top:80px;
   right:-120px;
+  animation-duration:22s;
+  animation-delay:-1s;
 }
 .blob3{
   width:420px;
@@ -75,6 +104,8 @@ body::before{
   background:rgba(255,92,132,.9);
   bottom:-120px;
   left:180px;
+  animation-duration:26s;
+  animation-delay:-3s;
 }
 .blob4{
   width:360px;
@@ -82,10 +113,30 @@ body::before{
   background:rgba(255,215,79,.85);
   bottom:-140px;
   right:160px;
+  animation-duration:28s;
+  animation-delay:-4s;
 }
 @keyframes float{
-  from{transform:translateY(-10px) translateX(0) scale(1);}
-  to{transform:translateY(24px) translateX(36px) scale(1.08);}
+  from{transform:translateY(-10px) translateX(0) scale(1) rotate(0deg);}
+  to{transform:translateY(24px) translateX(36px) scale(1.08) rotate(7deg);}
+}
+
+@keyframes flow{
+  0%{
+    transform:translateY(-10px) translateX(0) scale(1) rotate(0deg);
+    filter:blur(100px) hue-rotate(0deg);
+    opacity:.85;
+  }
+  50%{
+    transform:translateY(40px) translateX(-28px) scale(1.06) rotate(8deg);
+    filter:blur(120px) hue-rotate(45deg);
+    opacity:.9;
+  }
+  100%{
+    transform:translateY(-8px) translateX(12px) scale(1) rotate(-4deg);
+    filter:blur(100px) hue-rotate(0deg);
+    opacity:.8;
+  }
 }
 .container{
   position:relative;
@@ -100,7 +151,7 @@ h1{
   letter-spacing:-.03em;
   text-shadow:0 25px 80px rgba(0,0,0,.35);
   margin-bottom:32px;
-  animation:fadeInUp .9s ease both;
+  animation:fadeInUp .9s ease both, glowText 3.5s ease-in-out infinite alternate;
 }
 .subtitle{
   max-width:720px;
@@ -109,6 +160,7 @@ h1{
   color:var(--muted);
   text-align:center;
   line-height:1.8;
+  animation:fadeInUp .9s ease .1s both;
 }
 .grid{
   display:grid;
@@ -118,44 +170,59 @@ h1{
 .card{
   position:relative;
   overflow:hidden;
-  border-radius:32px;
-  background:var(--card);
-  border:1px solid var(--card-border);
-  backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
-  box-shadow:var(--shadow);
-  padding:28px;
+  border-radius:36px;
+  background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.08));
+  border:1px solid rgba(255,255,255,.18);
+  backdrop-filter:blur(30px);
+  -webkit-backdrop-filter:blur(30px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12), 0 24px 70px rgba(0,0,0,.24);
+  padding:30px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  min-height:190px;
+  min-height:200px;
   animation:fadeInUp .9s ease both;
   transition:transform .35s ease,box-shadow .35s ease,background .35s ease;
 }
 .card:hover{
-  transform:translateY(-12px);
-  box-shadow:0 40px 90px rgba(0,0,0,.28);
+  transform:translateY(-14px) rotate(-0.2deg);
+  box-shadow:0 48px 100px rgba(0,0,0,.3);
   background:rgba(255,255,255,.22);
+}
+.card:active{
+  transform:translateY(-6px) scale(.99);
 }
 .card::before{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,.08),transparent 35%,rgba(255,255,255,.04));
+  background:linear-gradient(135deg,rgba(255,255,255,.1),transparent 30%,rgba(255,255,255,.06));
+  pointer-events:none;
+}
+.card::after{
+  content:"";
+  position:absolute;
+  top:-30%;
+  left:-40%;
+  width:220px;
+  height:220px;
+  background:radial-gradient(circle, rgba(255,255,255,.14), transparent 55%);
+  opacity:.6;
   pointer-events:none;
 }
 .card h2{
-  font-size:1.4rem;
-  margin-bottom:10px;
+  font-size:1.45rem;
+  margin-bottom:12px;
   color:#fff;
+  letter-spacing:-.02em;
 }
 .card p{
   font-size:1rem;
-  color:var(--muted);
-  line-height:1.65;
+  color:rgba(248,248,251,.78);
+  line-height:1.75;
 }
 .button-group{
-  margin-top:22px;
+  margin-top:24px;
 }
 .download-btn{
   position:relative;
@@ -164,27 +231,55 @@ h1{
   align-items:center;
   justify-content:center;
   gap:10px;
-  padding:14px 28px;
+  padding:14px 30px;
   border-radius:999px;
   font-weight:700;
   color:var(--text);
-  background:rgba(255,255,255,.18);
-  border:1px solid rgba(255,255,255,.35);
-  box-shadow:inset 0 0 18px rgba(255,255,255,.12),0 14px 30px rgba(0,0,0,.16);
+  background:linear-gradient(135deg, rgba(255,255,255,.24), rgba(255,255,255,.12));
+  border:1px solid rgba(255,255,255,.38);
+  box-shadow:inset 0 0 20px rgba(255,255,255,.18), 0 16px 32px rgba(0,0,0,.22);
   text-decoration:none;
   transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
+  z-index:1;
+}
+.download-btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:999px;
+  background:radial-gradient(circle at center, rgba(255,255,255,.32), transparent 40%);
+  opacity:0;
+  transform:scale(0.9);
+  transition:opacity .25s ease,transform .25s ease;
+  pointer-events:none;
+}
+.download-btn::after{
+  content:"";
+  position:absolute;
+  inset:-6px;
+  border-radius:999px;
+  background:radial-gradient(circle at var(--light-x,50%) var(--light-y,50%), rgba(255,255,255,.18), transparent 40%);
+  opacity:.6;
+  filter:blur(12px);
+  pointer-events:none;
+  transition:opacity .25s ease, transform .25s ease;
+  z-index:0;
+}
+.download-btn:hover::before{
+  opacity:1;
+  transform:scale(1.05);
 }
 .download-btn:hover{
-  transform:translateY(-2px) scale(1.02);
-  background:rgba(255,255,255,.28);
-  box-shadow:inset 0 0 22px rgba(255,255,255,.16),0 18px 38px rgba(0,0,0,.18);
+  transform:translateY(-3px) scale(1.02);
+  background:linear-gradient(135deg, rgba(255,255,255,.32), rgba(255,255,255,.16));
+  box-shadow:inset 0 0 24px rgba(255,255,255,.18), 0 20px 40px rgba(0,0,0,.24);
 }
 .download-btn:active{
   transform:translateY(0) scale(0.98);
-  box-shadow:inset 0 0 18px rgba(255,255,255,.08),0 10px 20px rgba(0,0,0,.18);
+  box-shadow:inset 0 0 18px rgba(255,255,255,.12), 0 10px 20px rgba(0,0,0,.18);
 }
 .download-btn:focus-visible{
-  outline:2px solid rgba(255,255,255,.7);
+  outline:2px solid rgba(255,255,255,.75);
   outline-offset:4px;
 }
 .card:nth-child(1){animation-delay:.12s;}
@@ -194,6 +289,10 @@ h1{
 @keyframes fadeInUp{
   from{opacity:0;transform:translateY(28px);}
   to{opacity:1;transform:translateY(0);}
+}
+@keyframes glowText{
+  from{text-shadow:0 25px 80px rgba(0,0,0,.35),0 0 20px rgba(77,141,255,.14);}
+  to{text-shadow:0 25px 80px rgba(0,0,0,.35),0 0 28px rgba(255,215,79,.2);}
 }
 @media(max-width:860px){
   .grid{grid-template-columns:1fr;}
@@ -213,6 +312,7 @@ h1{
   <div class="blob blob3"></div>
   <div class="blob blob4"></div>
 </div>
+<div class="snow"></div>
 <div class="container">
   <h1>BPWMC 资源中心</h1>
   <div class="grid">
@@ -236,7 +336,7 @@ h1{
     </article>
     <article class="card">
       <div>
-        <h2>Cinema 4D 2024(需要梯子）</h2>
+        <h2>Cinema 4D 2024</h2>
         <p>更新时间 2026-07-14</p>
       </div>
       <div class="button-group">
@@ -264,30 +364,98 @@ h1{
   </div>
 </div>
 <script>
+  // Light follow: device orientation (mobile) or mouse (desktop)
+  (function(){
+    const root = document.documentElement;
+    function setLight(xPct,yPct){
+      root.style.setProperty('--light-x', xPct + '%');
+      root.style.setProperty('--light-y', yPct + '%');
+    }
+    // mouse move
+    window.addEventListener('mousemove', e=>{
+      const x = e.clientX / window.innerWidth * 100;
+      const y = e.clientY / window.innerHeight * 100;
+      setLight(x,y);
+    }, {passive:true});
+
+    // device orientation
+    function handleOrientation(e){
+      // gamma: left-right [-90,90], beta: front-back [-180,180]
+      const gx = e.gamma || 0;
+      const gy = e.beta || 0;
+      const x = 50 + (gx / 90) * 30; // shift up to +/-30%
+      const y = 50 + (gy / 180) * 30;
+      setLight(x,y);
+    }
+    if(window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function'){
+      // iOS 13+ requires permission
+      // try request on first touch
+      const req = ()=>{ DeviceOrientationEvent.requestPermission().then(res=>{ if(res==='granted') window.addEventListener('deviceorientation', handleOrientation); }).catch(()=>{}); window.removeEventListener('touchstart', req); };
+      window.addEventListener('touchstart', req, {passive:true});
+    } else if(window.DeviceOrientationEvent){
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
+  })();
+
+  function createRipple(element, event, color) {
+    const circle = document.createElement('span');
+    const rect = element.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height) * 2;
+    circle.style.position = 'absolute';
+    circle.style.left = `${event.clientX - rect.left - size / 2}px`;
+    circle.style.top = `${event.clientY - rect.top - size / 2}px`;
+    circle.style.width = `${size}px`;
+    circle.style.height = `${size}px`;
+    circle.style.background = color;
+    circle.style.borderRadius = '50%';
+    circle.style.pointerEvents = 'none';
+    circle.style.transform = 'scale(0)';
+    circle.style.opacity = '0.75';
+    circle.style.transition = 'transform .45s ease,opacity .45s ease';
+    element.appendChild(circle);
+    requestAnimationFrame(() => {
+      circle.style.transform = 'scale(1)';
+      circle.style.opacity = '0';
+    });
+    setTimeout(() => circle.remove(), 450);
+  }
+
   document.querySelectorAll('.download-btn').forEach(btn => {
     btn.addEventListener('pointerdown', function(e) {
-      const circle = document.createElement('span');
-      const rect = this.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height) * 2;
-      circle.style.position = 'absolute';
-      circle.style.left = `${e.clientX - rect.left - size / 2}px`;
-      circle.style.top = `${e.clientY - rect.top - size / 2}px`;
-      circle.style.width = `${size}px`;
-      circle.style.height = `${size}px`;
-      circle.style.background = 'rgba(255,255,255,.22)';
-      circle.style.borderRadius = '50%';
-      circle.style.pointerEvents = 'none';
-      circle.style.transform = 'scale(0)';
-      circle.style.opacity = '0.75';
-      circle.style.transition = 'transform .45s ease,opacity .45s ease';
-      this.appendChild(circle);
-      requestAnimationFrame(() => {
-        circle.style.transform = 'scale(1)';
-        circle.style.opacity = '0';
-      });
-      setTimeout(() => circle.remove(), 450);
+      createRipple(this, e, 'rgba(255,255,255,.22)');
     });
   });
+
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('pointerdown', function(e) {
+      if (e.target.closest('.download-btn')) return;
+      createRipple(this, e, 'rgba(255,255,255,.14)');
+    });
+  });
+
+  const snowContainer = document.querySelector('.snow');
+
+  function createSnowflake() {
+    const snowflake = document.createElement('span');
+    snowflake.className = 'snowflake';
+    snowflake.textContent = '❄';
+    const size = Math.random() * 14 + 8;
+    const left = Math.random() * 100;
+    const duration = Math.random() * 10 + 8;
+    const delay = Math.random() * -20;
+    snowflake.style.fontSize = `${size}px`;
+    snowflake.style.left = `${left}vw`;
+    snowflake.style.opacity = `${Math.random() * .4 + .55}`;
+    snowflake.style.animationDuration = `${duration}s`;
+    snowflake.style.animationDelay = `${delay}s`;
+    snowContainer.appendChild(snowflake);
+    setTimeout(() => snowflake.remove(), (duration + 1) * 1000);
+  }
+
+  for (let i = 0; i < 25; i++) {
+    createSnowflake();
+  }
+  setInterval(createSnowflake, 550);
 </script>
 </body>
 </html>

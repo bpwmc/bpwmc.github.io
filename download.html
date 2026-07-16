@@ -558,9 +558,8 @@ body{
 
   const snowContainer = document.querySelector('.snow');
   const isMobileScreen = window.matchMedia('(max-width:640px)').matches;
-  const snowCount = isMobileScreen ? 12 : 25;
-  const snowIntervalTime = isMobileScreen ? 900 : 550;
-
+  const snowCount = isMobileScreen ? 6 : 25;
+const snowIntervalTime = isMobileScreen ? 1600 : 550;
   function createSnowflake() {
     if (!snowContainer) return;
     const snowflake = document.createElement('span');

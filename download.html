@@ -304,14 +304,114 @@ h1{
   .grid{grid-template-columns:1fr;}
 }
 @media(max-width:640px){
-  body{padding:18px 12px;}
-  h1{font-size:clamp(2rem,8vw,3rem);}
-  .subtitle{margin-bottom:28px;}
-  .grid{gap:18px;}
-  .card{padding:20px;min-height:auto;}
-  .download-btn{width:100%;justify-content:center;}
-  .fluid-bg{filter:blur(24px);}
-  .blob{opacity:.7;}
+
+  body{
+    padding:18px 12px;
+    background-attachment:fixed;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+
+  h1{
+    font-size:clamp(2rem,8vw,3rem);
+  }
+
+
+  .subtitle{
+    margin-bottom:28px;
+  }
+
+
+  .grid{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+
+  .card{
+    padding:20px;
+    min-height:auto;
+
+    /* 降低移动端玻璃效果压力 */
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    transform:translateZ(0);
+    will-change:transform;
+  }
+
+
+  .download-btn{
+    width:100%;
+    justify-content:center;
+  }
+
+
+  /*
+    手机GPU优化
+    保留渐变流动效果
+    但避免闪屏
+  */
+
+  .fluid-bg{
+
+    filter:none;
+
+    opacity:.85;
+
+    transform:translateZ(0);
+
+    will-change:transform;
+
+  }
+
+
+  .blob{
+
+    filter:blur(70px);
+
+    opacity:.55;
+
+    animation-duration:35s!important;
+
+    transform:translateZ(0);
+
+  }
+
+
+  .blob3,
+  .blob4{
+
+    opacity:.35;
+
+  }
+
+
+  /* 禁止滚动时重新渲染造成闪烁 */
+  body::before{
+
+    position:absolute;
+
+  }
+
+
+}
+  html{
+  background:#080a12;
+}
+
+body{
+  opacity:0;
+  animation:pageShow .35s ease forwards;
+}
+
+@keyframes pageShow{
+  from{
+    opacity:0;
+  }
+  to{
+    opacity:1;
+  }
 }
 </style>
 </head>

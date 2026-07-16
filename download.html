@@ -55,6 +55,11 @@ body::before{
   z-index:0;
   overflow:hidden;
 }
+.snow{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
 .snowflake{
   position:absolute;
   top:-24px;
@@ -64,6 +69,7 @@ body::before{
   opacity:.85;
   text-shadow:0 0 16px rgba(255,255,255,.8);
   animation:fall linear infinite;
+  will-change: transform, opacity;
 }
 @keyframes fall{
   to{
@@ -299,9 +305,13 @@ h1{
 }
 @media(max-width:640px){
   body{padding:18px 12px;}
+  h1{font-size:clamp(2rem,8vw,3rem);}
   .subtitle{margin-bottom:28px;}
-  .card{padding:22px;min-height:auto;}
+  .grid{gap:18px;}
+  .card{padding:20px;min-height:auto;}
   .download-btn{width:100%;justify-content:center;}
+  .fluid-bg{filter:blur(24px);}
+  .blob{opacity:.7;}
 }
 </style>
 </head>
@@ -367,15 +377,28 @@ h1{
   // Light follow: device orientation (mobile) or mouse (desktop)
   (function(){
     const root = document.documentElement;
+    let lightX = 50;
+    let lightY = 50;
+    let lightUpdateRaf = null;
     function setLight(xPct,yPct){
       root.style.setProperty('--light-x', xPct + '%');
       root.style.setProperty('--light-y', yPct + '%');
+    }
+    function updateLight(xPct,yPct){
+      lightX = xPct;
+      lightY = yPct;
+      if (lightUpdateRaf === null) {
+        lightUpdateRaf = requestAnimationFrame(() => {
+          setLight(lightX, lightY);
+          lightUpdateRaf = null;
+        });
+      }
     }
     // mouse move
     window.addEventListener('mousemove', e=>{
       const x = e.clientX / window.innerWidth * 100;
       const y = e.clientY / window.innerHeight * 100;
-      setLight(x,y);
+      updateLight(x,y);
     }, {passive:true});
 
     // device orientation
@@ -385,7 +408,7 @@ h1{
       const gy = e.beta || 0;
       const x = 50 + (gx / 90) * 30; // shift up to +/-30%
       const y = 50 + (gy / 180) * 30;
-      setLight(x,y);
+      updateLight(x,y);
     }
     if(window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function'){
       // iOS 13+ requires permission
@@ -434,8 +457,12 @@ h1{
   });
 
   const snowContainer = document.querySelector('.snow');
+  const isMobileScreen = window.matchMedia('(max-width:640px)').matches;
+  const snowCount = isMobileScreen ? 12 : 25;
+  const snowIntervalTime = isMobileScreen ? 900 : 550;
 
   function createSnowflake() {
+    if (!snowContainer) return;
     const snowflake = document.createElement('span');
     snowflake.className = 'snowflake';
     snowflake.textContent = '❄';
@@ -452,10 +479,10 @@ h1{
     setTimeout(() => snowflake.remove(), (duration + 1) * 1000);
   }
 
-  for (let i = 0; i < 25; i++) {
+  for (let i = 0; i < snowCount; i++) {
     createSnowflake();
   }
-  setInterval(createSnowflake, 550);
+  setInterval(createSnowflake, snowIntervalTime);
 </script>
 </body>
 </html>
